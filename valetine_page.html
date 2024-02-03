@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day</title>
+    <link rel="stylesheet" type="text/css" href="css/style_page2.css">
+</head>
+<body>
+    <div class="background">
+        <h2>Will you be my Valentine today, tommorow, day after tommorow and so ..... ?</h2>
+        <button id="yesButton" onclick="showText()">Yes, Yes, Yes Yes </button>
+        <button id="noButton" onclick="moveNoButton()">I don't know</button>
+    </div>
+    <script>
+        function showText() {
+        var confirmation = confirm("Yeiiiiii, I Love You 3000 my valentine!");
+        if (confirmation) {
+            // Redirect to the home page
+            window.location.href = "index.html";
+        }
+    }
+
+        function moveNoButton() {
+            var noButton = document.getElementById("noButton");
+            var yesButton = document.getElementById("yesButton");
+
+            // Fixed initial position for the "No" button
+            var initialPositionX = window.innerWidth * 0.7;
+            var initialPositionY = window.innerHeight * 0.3;
+
+            var newPositionX = Math.random() * (window.innerWidth - noButton.clientWidth - initialPositionX) + initialPositionX;
+            var newPositionY = Math.random() * (window.innerHeight - noButton.clientHeight - initialPositionY) + initialPositionY;
+
+            noButton.style.left = newPositionX + "px";
+            noButton.style.top = newPositionY + "px";
+
+            // Check if buttons overlap and reposition if needed
+            checkButtonOverlap(noButton, yesButton);
+        }
+
+        function checkButtonOverlap(button1, button2) {
+            var rect1 = button1.getBoundingClientRect();
+            var rect2 = button2.getBoundingClientRect();
+
+            if (
+                rect1.left < rect2.right &&
+                rect1.right > rect2.left &&
+                rect1.top < rect2.bottom &&
+                rect1.bottom > rect2.top
+            ) {
+                // Buttons overlap, reposition button1
+                moveNoButton();
+            }
+        }
+    </script>
+</body>
+</html>
